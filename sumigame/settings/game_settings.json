@@ -1,0 +1,17 @@
+{
+  "game": {
+    "name": "Ashfalle",
+    "maxPlayerLevel": 50
+  },
+  "lootDefaults": {
+    "artistry": {
+      "minimumValue": 2,
+      "maximumValue": 4
+    },
+    "levelGenerateRange": {
+      "minimumValue": 1,
+      "maximumValue": null
+    },
+    "itemType": "armor"
+  }
+}
