@@ -1,33 +1,46 @@
 const gameSettings = require("./settings/game_settings.json");
 const { equipment, randomEquipment } = require("./mechanics/loot/artistry");
-const { LootPool, LootTable } = require("./mechanics/loot/LootTable");
 
-(async function () {
-  await main();
+(async function (name = gameSettings.game.name) {
+  try {
+    await main(name);
 
-  onExit();
+    onExit(name);
+  } catch (error) {
+    console.error(error);
+
+    onExit("main");
+  }
 })();
 
-async function main() {
+async function main(name) {
   await new Promise((resolve, reject) => {
-    const lootTable = new LootTable();
+    if (!name) reject("Error: gameSettings.game.name not set");
+    else {
+      // ...
 
-    const commonItems = ["common item"];
-    const uncommonItems = ["uncommon item"];
-    const rareItems = ["rare item"];
+      const lootOptions = {
+        artistry: {
+          min: 1,
+          max: 3,
+        },
+        levelGenerateRange: {
+          min: 3,
+          max: 8,
+        },
+        randomEquipmentItemType: "armor",
+      };
 
-    lootTable.addLootPool(new LootPool("common pool", commonItems, 333));
-    lootTable.addLootPool(new LootPool("uncommon pool", uncommonItems, 50));
-    lootTable.addLootPool(new LootPool("rare pool", rareItems, 10));
+      const item = equipment.armor.shield(lootOptions);
+      console.log(item);
 
-    const droppedItems = lootTable.rollMultiple(3);
-
-    console.log(droppedItems);
-
-    resolve();
+      resolve(name);
+    }
   });
 }
 
-function onExit() {
-  console.log(`\n${gameSettings.game.name} exited\n`);
+function onExit(name) {
+  // ...
+
+  console.log(`\n${name} exited\n`);
 }

@@ -5,13 +5,13 @@
   },
   "lootDefaults": {
     "artistry": {
-      "minimumValue": 2,
-      "maximumValue": 4
+      "min": 2,
+      "max": 4
     },
     "levelGenerateRange": {
-      "minimumValue": 1,
-      "maximumValue": null
+      "min": 1,
+      "max": null
     },
-    "itemType": "armor"
+    "randomEquipmentItemType": "armor"
   }
 }
