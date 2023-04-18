@@ -1,6 +1,6 @@
 const gameSettings = require("./settings/game_settings.json");
 const { equipment, randomEquipment } = require("./mechanics/loot/artistry");
-const { Item, ItemCategories } = require("./mechanics/items/Item");
+const { Item, ItemCategory } = require("./mechanics/items/Item");
 
 (async function (name = gameSettings.game.name) {
   try {
@@ -19,7 +19,26 @@ async function main(name) {
     if (!name) reject("Error: gameSettings.game.name not set");
     else {
       // ...
-      const item = new Item("Item", ItemCategories.GENERAL, 1, 20, 20);
+
+      const lootOptions = {
+        artistry: {
+          min: 1,
+          max: 3,
+        },
+        levelGenerateRange: {
+          min: 43,
+          max: 53,
+        },
+        // randomEquipmentItemType: "armor",
+      };
+
+      const numItems = 50;
+      const items = [];
+
+      for (let item = 0; item < numItems; item++) {
+        items.push(randomEquipment(lootOptions));
+      }
+      items.forEach((item) => console.log(item.toString()));
 
       resolve();
     }

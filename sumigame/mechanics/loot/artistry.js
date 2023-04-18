@@ -1,9 +1,9 @@
 const gameSettings = require("../../settings/game_settings.json");
 const getRandomIntInclusive = require("../../utils/getRandomIntInclusive");
 const getRandomElement = require("../../utils/getRandomElement");
-const _generateArmor = require("./generators/generateArmor");
-const _generateJewelry = require("./generators/generateJewelry");
-const _generateWeapon = require("./generators/generateWeapon");
+const genArmor = require("./artistry_generators/genArmor");
+const genJewelry = require("./artistry_generators/genJewelry");
+const genWeapon = require("./artistry_generators/genWeapon");
 
 const equipment = {
   armor: {
@@ -60,9 +60,9 @@ function _generate(type, subtype) {
 
     // use generator
     const generator = {
-      armor: () => _generateArmor(subtype, rArtistry, rLevel),
-      jewelry: () => _generateJewelry(subtype, rArtistry, rLevel),
-      weapon: () => _generateWeapon(subtype, rArtistry, rLevel),
+      armor: () => genArmor(subtype, rArtistry, rLevel),
+      jewelry: () => genJewelry(subtype, rArtistry, rLevel),
+      weapon: () => genWeapon(subtype, rArtistry, rLevel),
     };
 
     const item = generator[type]();
@@ -95,6 +95,7 @@ function randomEquipment(lootOptions = {}) {
       return equipment.weapon[weaponSubtype](lootOptions);
 
     default:
+      // TODO: throw error?
       break;
   }
 }

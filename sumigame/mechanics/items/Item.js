@@ -2,28 +2,22 @@
  * An enumeration of the possible categories for an Item.
  * @enum {string}
  * @readonly
- * @property {string} GENERAL - The category for general items (default).
- * @property {string} ARMOR - The category for armor items.
+ * @property {null} GENERAL - The category for general items (default).
  * @property {string} COMPONENT - The category for component items.
  * @property {string} CONSUMABLE - The category for consumable items.
- * @property {string} JEWELRY - The category for jewelry items.
+ * @property {string} EQUIPABLE - The category for weapon items.
  * @property {string} REAGENT - The category for reagent items.
- * @property {string} TRINKET - The category for trinket items.
- * @property {string} WEAPON - The category for weapon items.
  */
-const ItemCategories = Object.freeze({
-  GENERAL: "General",
-  ARMOR: "Armor",
+const ItemCategory = Object.freeze({
+  GENERAL: null,
   COMPONENT: "Component",
   CONSUMABLE: "Consumable",
-  JEWELRY: "Jewelry",
+  EQUIPABLE: "Equipable",
   REAGENT: "Reagent",
-  TRINKET: "Trinket",
-  WEAPON: "Weapon",
 });
 
 /**
- * Class representing an item in a game.
+ * Class representing an item.
  */
 class Item {
   #name;
@@ -66,7 +60,7 @@ class Item {
   }
 
   set category(category) {
-    if (Object.values(ItemCategories).includes(category)) {
+    if (Object.values(ItemCategory).includes(category)) {
       this.#category = category;
     } else {
       throw new Error(`Invalid category: ${category}`);
@@ -156,13 +150,11 @@ class Item {
 
   toString() {
     const quantityValueCurrency = this.getQuantityValueCurrencyArray().join(".");
-    return `${this.#name} (${this.#quantity}) (${
-      this.#category
-    }), Quantity value: ${quantityValueCurrency}`;
+    return `${this.#name} (${this.#quantity}) (${this.#category}), Value: ${quantityValueCurrency}`;
   }
 }
 
 module.exports = {
   Item,
-  ItemCategories,
+  ItemCategory,
 };

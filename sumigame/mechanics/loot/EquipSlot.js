@@ -1,14 +1,15 @@
-const EquipSlot = {
-  HEAD: Symbol("HEAD"),
-  CHEST: Symbol("CHEST"),
-  HANDS: Symbol("HANDS"),
-  LEGS: Symbol("LEGS"),
-  FEET: Symbol("FEET"),
-  NECK: Symbol("NECK"),
-  FINGER: Symbol("FINGER"),
-  TRINKET: Symbol("TRINKET"),
-  ONE_HAND: Symbol("ONE_HAND"),
-  TWO_HAND: Symbol("TWO_HAND"),
-};
+const EquipSlot = Object.freeze({
+  CHEST: "Chest",
+  FEET: "Feet",
+  FINGER: "Finger",
+  HANDS: "Hands",
+  HEAD: "Head",
+  LEGS: "Legs",
+  NECK: "Neck",
+  ONE_HANDED: "One-handed",
+  RELIC: "Relic",
+  TRINKET: "Trinket",
+  TWO_HANDED: "Two-handed",
+});
 
 module.exports = EquipSlot;

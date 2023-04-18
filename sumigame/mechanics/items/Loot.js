@@ -1,7 +1,4 @@
-const { Item, ItemCategories } = require("./Item");
-
-// TODO: documentation and tests
-// TODO: redundant class
+const { Item, ItemCategory } = require("./Item");
 
 class Loot extends Item {
   constructor(name = "Item", category = "general", carryWeight = 0, value = 0, maxQuantity = 1) {

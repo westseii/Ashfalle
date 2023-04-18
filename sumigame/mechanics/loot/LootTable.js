@@ -71,7 +71,7 @@ class LootTable {
   /**
    * Rolls the loot table multiple times to determine which items, if any, will be dropped.
    * @param {number} numberOfRolls - The number of times to roll the loot table.
-   * @returns {Array<Loot>} - An array of the items that were dropped.
+   * @returns {Array<Item>} - An array of the items that were dropped.
    */
   rollMultiple(numberOfRolls = 3) {
     let droppedItems = [];
@@ -92,7 +92,7 @@ class LootPool {
   /**
    * Creates a new instance of the LootPool class.
    * @param {string} name - The name of the loot pool.
-   * @param {Array<Loot>} pool - The items in the loot pool.
+   * @param {Array<Item>} pool - The items in the loot pool.
    * @param {number} weight - The weight of the loot pool, used to calculate the probability of the pool being chosen.
    */
   constructor(name, pool, weight) {
