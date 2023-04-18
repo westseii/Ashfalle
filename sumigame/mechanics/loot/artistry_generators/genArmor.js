@@ -4,7 +4,7 @@ const getRandomIntInclusive = require("../../../utils/getRandomIntInclusive");
 const getRandomElement = require("../../../utils/getRandomElement");
 
 const { HEAD, CHEST, HANDS, LEGS, FEET, ONE_HANDED } = EquipSlot;
-const slots = Object.values({
+const possible = Object.values({
   HEAD,
   CHEST,
   HANDS,
@@ -16,7 +16,7 @@ function genArmor(subtype, rArtistry, rLevel) {
   let created;
 
   if (subtype === "shield") created = ONE_HANDED;
-  else created = getRandomElement(slots);
+  else created = getRandomElement(possible);
 
   return new Item(
     `${created} ${subtype}`,
