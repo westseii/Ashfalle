@@ -1,9 +1,9 @@
 const creatureEquipped = {
-  chest: {},
-  feet: {},
-  hands: {},
   head: {},
+  chest: {},
+  hands: {},
   legs: {},
+  feet: {},
 };
 
 module.exports = creatureEquipped;
