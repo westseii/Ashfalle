@@ -1,6 +1,7 @@
 const cc = require("node-console-colors");
 const gameSettings = require("./settings/game_settings.json");
-const Creature2 = require("./mechanics/creature/Creature2");
+
+const { equipment, randomEquipment } = require("./mechanics/loot/artistry");
 
 (async function (name = gameSettings.game.name) {
   try {
@@ -20,8 +21,13 @@ async function main(name) {
     else {
       // ...
 
-      const creature2 = new Creature2("Test Creature2");
-      creature2.printBaseStats();
+      const items = [];
+      const numItemsToGenerate = 50;
+      for (let i = 0; i < numItemsToGenerate; i++) {
+        const item = randomEquipment();
+        items.push(item);
+      }
+      items.forEach((item) => console.log(item.toString()));
 
       resolve();
     }

@@ -37,32 +37,32 @@ const equipment = {
  */
 function _applyLootOptions(lootOptions) {
   // Override default lootOptions with user-specified lootOptions
-  const { artistry, levelGenerateRange } = { ...gameSettings.lootDefaults, ...lootOptions };
+  const { artistryRange, levelRange } = { ...gameSettings.lootDefaults, ...lootOptions };
 
   // Set default maximum value for levelGenerateRange if it is null
-  if (levelGenerateRange.max === null) {
-    levelGenerateRange.max = gameSettings.game.maxPlayerLevel;
+  if (levelRange.max === null) {
+    levelRange.max = gameSettings.game.maxPlayerLevel;
   }
 
-  const rArtistry = getRandomIntInclusive(artistry.min, artistry.max);
-  const rLevel = getRandomIntInclusive(levelGenerateRange.min, levelGenerateRange.max);
+  const artistry = getRandomIntInclusive(artistryRange.min, artistryRange.max);
+  const level = getRandomIntInclusive(levelRange.min, levelRange.max);
 
   // Return validated loot lootOptions
   return {
-    rArtistry,
-    rLevel,
+    artistry,
+    level,
   };
 }
 
 function _generate(type, subtype) {
   return (lootOptions = {}) => {
-    const { rArtistry, rLevel } = _applyLootOptions(lootOptions);
+    const { artistry, level } = _applyLootOptions(lootOptions);
 
     // use generator
     const generator = {
-      armor: () => genArmor(subtype, rArtistry, rLevel),
-      jewelry: () => genJewelry(subtype, rArtistry, rLevel),
-      weapon: () => genWeapon(subtype, rArtistry, rLevel),
+      armor: () => genArmor(subtype, artistry, level),
+      jewelry: () => genJewelry(subtype, artistry, level),
+      weapon: () => genWeapon(subtype, artistry, level),
     };
 
     const item = generator[type]();
@@ -73,25 +73,24 @@ function _generate(type, subtype) {
 
 const itemTypes = Object.keys(equipment);
 
-const lootArmorSubtypes = Object.keys(equipment.armor);
-const lootJewelrySubtypes = Object.keys(equipment.jewelry);
-const lootWeaponSubtypes = Object.keys(equipment.weapon);
+const armorSubtypes = Object.keys(equipment.armor);
+const jewelrySubtypes = Object.keys(equipment.jewelry);
+const weaponSubtypes = Object.keys(equipment.weapon);
 
 function randomEquipment(lootOptions = {}) {
-  const randomEquipmentItemType =
-    lootOptions.randomEquipmentItemType || getRandomElement(itemTypes);
+  const itemType = lootOptions.itemType || getRandomElement(itemTypes);
 
-  switch (randomEquipmentItemType) {
+  switch (itemType) {
     case "armor":
-      const armorSubtype = getRandomElement(lootArmorSubtypes);
+      const armorSubtype = getRandomElement(armorSubtypes);
       return equipment.armor[armorSubtype](lootOptions);
 
     case "jewelry":
-      const jewelrySubtype = getRandomElement(lootJewelrySubtypes);
+      const jewelrySubtype = getRandomElement(jewelrySubtypes);
       return equipment.jewelry[jewelrySubtype](lootOptions);
 
     case "weapon":
-      const weaponSubtype = getRandomElement(lootWeaponSubtypes);
+      const weaponSubtype = getRandomElement(weaponSubtypes);
       return equipment.weapon[weaponSubtype](lootOptions);
 
     default:

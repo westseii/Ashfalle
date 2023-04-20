@@ -1,17 +1,16 @@
-const EquipSlot = require("../EquipSlot");
 const { Item, ItemCategory } = require("../../items/Item");
 const getRandomIntInclusive = require("../../../utils/getRandomIntInclusive");
 
-const { NECK, FINGER } = EquipSlot;
+const { NECK, FINGER } = require("../EquipSlot");
 
-function genJewelry(subtype, rArtistry, rLevel) {
-  let created;
+function genJewelry(subtype, artistry, level) {
+  let type;
 
-  if (subtype === "necklace") created = NECK;
-  else if (subtype === "ring") created = FINGER;
+  if (subtype === "necklace") type = NECK;
+  else if (subtype === "ring") type = FINGER;
 
   return new Item(
-    `${created} ${subtype}`,
+    `${type} ${subtype}`,
     ItemCategory.EQUIPABLE,
     1,
     getRandomIntInclusive(9999, 33333),

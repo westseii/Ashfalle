@@ -1,3 +1,5 @@
+const cc = require("node-console-colors");
+
 /**
  * An enumeration of the possible categories for an Item.
  * @enum {string}
@@ -150,7 +152,9 @@ class Item {
 
   toString() {
     const quantityValueCurrency = this.getQuantityValueCurrencyArray().join(".");
-    return `${this.#name} (${this.#quantity}) (${this.#category}), Value: ${quantityValueCurrency}`;
+    return `${cc.set("fg_dark_green", this.#name)} (${this.#quantity}) (${
+      this.#category
+    }), Value: ${cc.set("fg_dark_yellow", quantityValueCurrency)}`;
   }
 }
 

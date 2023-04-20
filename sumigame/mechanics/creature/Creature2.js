@@ -58,7 +58,7 @@ class Creature2 {
   }
 
   printBaseStats() {
-    console.log(cc.set("fg_dark_green", `${this.#name}'s stats:`));
+    console.log(cc.set("fg_dark_green", `${this.#name}'s base stats:`));
 
     Object.entries(this.#baseStats).forEach(([statName, statValue]) => {
       console.log(`${cc.set("fg_cyan", statName)}: ${statValue}`);

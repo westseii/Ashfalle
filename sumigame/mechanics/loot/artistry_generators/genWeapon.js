@@ -1,14 +1,13 @@
-const EquipSlot = require("../EquipSlot");
 const { Item, ItemCategory } = require("../../items/Item");
 const getRandomIntInclusive = require("../../../utils/getRandomIntInclusive");
 
-const { ONE_HANDED, TWO_HANDED } = EquipSlot;
+const { ONE_HANDED, TWO_HANDED } = require("../EquipSlot");
 
-function genWeapon(subtype, rArtistry, rLevel) {
-  let created;
+function genWeapon(subtype, artistry, level) {
+  let type;
 
   if (subtype === "axe" || subtype === "caster" || subtype === "mace" || subtype === "sword")
-    created = ONE_HANDED;
+    type = ONE_HANDED;
   else if (
     subtype === "axe2H" ||
     subtype === "caster2H" ||
@@ -16,10 +15,10 @@ function genWeapon(subtype, rArtistry, rLevel) {
     subtype === "missile" ||
     subtype === "sword2H"
   )
-    created = TWO_HANDED;
+    type = TWO_HANDED;
 
   return new Item(
-    `${created} ${subtype}`,
+    `${type} ${subtype}`,
     ItemCategory.EQUIPABLE,
     1,
     getRandomIntInclusive(9999, 33333),

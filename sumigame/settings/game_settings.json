@@ -4,14 +4,14 @@
     "maxPlayerLevel": 50
   },
   "lootDefaults": {
-    "artistry": {
+    "artistryRange": {
       "min": 2,
       "max": 4
     },
-    "levelGenerateRange": {
+    "levelRange": {
       "min": 1,
       "max": null
     },
-    "randomEquipmentItemType": "armor"
+    "itemType": "armor"
   }
 }
