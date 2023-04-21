@@ -1,3 +1,7 @@
+/**
+ * An enumeration type for types of equipment slots.
+ * @class
+ */
 class EquipSlot {
   static CHEST = new EquipSlot("CHEST", "Chest");
   static FEET = new EquipSlot("FEET", "Feet");
@@ -11,6 +15,11 @@ class EquipSlot {
   static TRINKET = new EquipSlot("TRINKET", "Trinket");
   static TWO_HANDED = new EquipSlot("TWO_HANDED", "Two-handed");
 
+  /**
+   * @constructor
+   * @param {string} key - The unique identifier for the equipment slot.
+   * @param {string} value - The human-readable name for the equipment slot.
+   */
   constructor(key, value) {
     this.key = key;
     this.value = value;
@@ -18,8 +27,12 @@ class EquipSlot {
     Object.freeze(this);
   }
 
+  /**
+   * Returns the human-readable name for the equipment slot as a string.
+   * @returns {string} - The name of the equipment slot.
+   */
   toString() {
-    return `${this.key} ${this.value}`;
+    return `${this.value}`;
   }
 }
 

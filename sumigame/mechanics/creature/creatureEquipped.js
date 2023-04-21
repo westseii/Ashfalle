@@ -1,13 +1,16 @@
 const creatureEquipped = {
   chest: {},
   feet: {},
-  finger: {},
+  finger1: {},
+  finger2: {},
   hands: {},
   head: {},
   legs: {},
   neck: {},
   oneHanded: {},
-  relic: {},
+  relic1: {},
+  relic2: {},
+  relic3: {},
   trinket: {},
   twoHanded: {},
 };

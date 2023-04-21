@@ -54,6 +54,12 @@ function _applyLootOptions(lootOptions) {
   };
 }
 
+/**
+ * Generates a function that generates an item of the specified type and subtype with the given artistry and level.
+ * @param {string} type - The type of item to generate (armor, jewelry, or weapon).
+ * @param {string} subtype - The subtype of item to generate (e.g. cloth, leather, etc. for armor).
+ * @returns {function} A function that generates an item with the specified properties.
+ */
 function _generate(type, subtype) {
   return (lootOptions = {}) => {
     const { artistry, level } = _applyLootOptions(lootOptions);
@@ -77,6 +83,18 @@ const armorSubtypes = Object.keys(equipment.armor);
 const jewelrySubtypes = Object.keys(equipment.jewelry);
 const weaponSubtypes = Object.keys(equipment.weapon);
 
+/**
+ * Generates a random piece of equipment based on the provided lootOptions.
+ * @param {Object} lootOptions - An optional object containing loot generation options.
+ * @param {string} [lootOptions.itemType] - The type of item to generate (armor, jewelry, or weapon).
+ * @param {Object} [lootOptions.artistryRange] - An object containing the minimum and maximum artistry for the item.
+ * @param {number} [lootOptions.artistryRange.min] - The minimum artistry for the item.
+ * @param {number} [lootOptions.artistryRange.max] - The maximum artistry for the item.
+ * @param {Object} [lootOptions.levelRange] - An object containing the minimum and maximum level for the item.
+ * @param {number} [lootOptions.levelRange.min] - The minimum level for the item.
+ * @param {number} [lootOptions.levelRange.max] - The maximum level for the item.
+ * @returns {Object} A random piece of equipment with the specified properties.
+ */
 function randomEquipment(lootOptions = {}) {
   const itemType = lootOptions.itemType || getRandomElement(itemTypes);
 

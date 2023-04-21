@@ -1,4 +1,7 @@
 const cc = require("node-console-colors");
+const setDefaultGameSettings = require("./setDefaultGameSettings");
+
+setDefaultGameSettings();
 const gameSettings = require("./settings/game_settings.json");
 
 const { equipment, randomEquipment } = require("./mechanics/loot/artistry");
@@ -21,13 +24,15 @@ async function main(name) {
     else {
       // ...
 
-      const items = [];
-      const numItemsToGenerate = 50;
+      const equipables = [];
+      const numItemsToGenerate = 5;
       for (let i = 0; i < numItemsToGenerate; i++) {
-        const item = randomEquipment();
-        items.push(item);
+        const item = randomEquipment({
+          itemType: null,
+        });
+        equipables.push(item);
       }
-      items.forEach((item) => console.log(item.toString()));
+      equipables.forEach((item) => console.log(item.toString()));
 
       resolve();
     }

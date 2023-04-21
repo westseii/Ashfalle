@@ -1,4 +1,5 @@
-const { Item, ItemCategory } = require("../../items/Item");
+const { ItemCategory } = require("../../items/Item");
+const Equipable = require("../../items/Equipable");
 const getRandomIntInclusive = require("../../../utils/getRandomIntInclusive");
 const getRandomElement = require("../../../utils/getRandomElement");
 
@@ -12,18 +13,26 @@ const possible = Object.values({
 });
 
 function genArmor(subtype, artistry, level) {
-  let type;
+  const slot = _getEquipSlot(subtype);
 
-  if (subtype === "shield") type = ONE_HANDED;
-  else type = getRandomElement(possible);
-
-  return new Item(
-    `${type} ${subtype}`,
+  return new Equipable(
+    `${slot} ${subtype}`,
     ItemCategory.EQUIPABLE,
     1,
     getRandomIntInclusive(9999, 33333),
-    1
+    1,
+    artistry,
+    level
   );
+}
+
+function _getEquipSlot(subtype) {
+  let slot;
+
+  if (subtype === "shield") slot = ONE_HANDED;
+  else slot = getRandomElement(possible);
+
+  return slot;
 }
 
 module.exports = genArmor;

@@ -1,7 +1,7 @@
 const cc = require("node-console-colors");
 
 /**
- * An enumeration of the possible categories for an Item.
+ * An enumeration type for types of categories for an Item.
  * @enum {string}
  * @readonly
  * @property {null} GENERAL - The category for general items (default).
@@ -10,13 +10,29 @@ const cc = require("node-console-colors");
  * @property {string} EQUIPABLE - The category for weapon items.
  * @property {string} REAGENT - The category for reagent items.
  */
-const ItemCategory = Object.freeze({
-  GENERAL: null,
-  COMPONENT: "Component",
-  CONSUMABLE: "Consumable",
-  EQUIPABLE: "Equipable",
-  REAGENT: "Reagent",
-});
+class ItemCategory {
+  static GENERAL = new ItemCategory("GENERAL", "General");
+  static COMPONENT = new ItemCategory("COMPONENT", "Component");
+  static CONSUMABLE = new ItemCategory("CONSUMABLE", "Consumable");
+  static EQUIPABLE = new ItemCategory("EQUIPABLE", "Equipable");
+  static REAGENT = new ItemCategory("REAGENT", "Reagent");
+
+  /**
+   * @constructor
+   * @param {string} key - The unique identifier for the item category.
+   * @param {string} value - The human-readable name for the item category.
+   */
+  constructor(key, value) {
+    this.key = key;
+    this.value = value;
+
+    Object.freeze(this);
+  }
+
+  toString() {
+    return `${this.value}`;
+  }
+}
 
 /**
  * Class representing an item.
@@ -32,13 +48,19 @@ class Item {
 
   /**
    * Create a new Item.
-   * @param {string} name - The name of the item.
-   * @param {string} category - The category of the item (as defined in ItemCategories).
-   * @param {number} carryWeight - The weight of the item.
-   * @param {number} value - The value of the item in copper.
-   * @param {number} maxQuantity - The maximum quantity of the item that can be stacked in a single slot.
+   * @param {string} [name] - The name of the item.
+   * @param {string} [category] - The category of the item (as defined in ItemCategory).
+   * @param {number} [carryWeight] - The weight of the item.
+   * @param {number} [value] - The value of the item in copper.
+   * @param {number} [maxQuantity] - The maximum quantity of the item that can be stacked in a single slot.
    */
-  constructor(name = "Item", category = "general", carryWeight = 0, value = 0, maxQuantity = 1) {
+  constructor(
+    name = "Unnamed Item",
+    category = ItemCategory.GENERAL,
+    carryWeight = 0,
+    value = 0,
+    maxQuantity = 1
+  ) {
     // validate arguments on initialization
     this.name = name;
     this.category = category;
@@ -151,10 +173,10 @@ class Item {
   }
 
   toString() {
-    const quantityValueCurrency = this.getQuantityValueCurrencyArray().join(".");
-    return `${cc.set("fg_dark_green", this.#name)} (${this.#quantity}) (${
-      this.#category
-    }), Value: ${cc.set("fg_dark_yellow", quantityValueCurrency)}`;
+    const currency = this.getQuantityValueCurrencyArray().join(".");
+
+    // TODO: output item info
+    return `${this.name}`;
   }
 }
 

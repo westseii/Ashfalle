@@ -1,17 +1,8 @@
 {
-  "game": {
-    "name": "Ashfalle",
-    "maxPlayerLevel": 50
-  },
+  "game": { "name": "Unnamed Game", "maxPlayerLevel": 50 },
   "lootDefaults": {
-    "artistryRange": {
-      "min": 2,
-      "max": 4
-    },
-    "levelRange": {
-      "min": 1,
-      "max": null
-    },
+    "artistryRange": { "min": 2, "max": 4 },
+    "levelRange": { "min": 1, "max": null },
     "itemType": "armor"
   }
 }
