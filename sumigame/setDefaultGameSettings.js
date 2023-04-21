@@ -1,9 +1,24 @@
 const fs = require("fs");
 const path = require("path");
+const cc = require("node-console-colors");
 
+/**
+ * The directory path where the game settings file should be located.
+ * @type {string}
+ */
 const settingsPath = path.join(".", "sumigame", "settings");
+
+/**
+ * The filename of the game settings file.
+ * @type {string}
+ */
 const fileName = "game_settings.json";
 
+/**
+ * The default game settings object, used to write to the game settings file
+ * if it does not exist.
+ * @type {object}
+ */
 const defaultGameSettings = {
   game: {
     name: "Unnamed Game",
@@ -22,14 +37,18 @@ const defaultGameSettings = {
   },
 };
 
+/**
+ * Checks if the game settings file exists, and if not, creates it and
+ * writes the default game settings to it.
+ */
 function setDefaultGameSettings() {
   try {
     if (!fs.existsSync(path.join(settingsPath, fileName))) {
-      // does not exist, create the subdirectory and/or write default content
+      // does not exist, create the subdirectory and file
       fs.mkdirSync(settingsPath, { recursive: true });
       fs.writeFileSync(path.join(settingsPath, fileName), JSON.stringify(defaultGameSettings));
 
-      console.log(`${fileName} created with defaults`);
+      console.log(cc.set("fg_dark_cyan", `${fileName} created with defaults\n`));
     }
   } catch (err) {
     console.error(err);
