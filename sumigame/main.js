@@ -2,6 +2,7 @@ const cc = require("node-console-colors");
 const setDefaultGameSettings = require("./setDefaultGameSettings");
 const { Item, ItemCategory } = require("./mechanics/items/Item");
 const Equipable = require("./mechanics/items/Equipable");
+const { LootTable, LootPool, LootPoolArtistry } = require("./mechanics/loot/LootTable");
 
 /**
  * The main function that runs the game.
@@ -25,14 +26,28 @@ const Equipable = require("./mechanics/items/Equipable");
       else {
         // ...
 
-        const item = new Item("Item", ItemCategory.GENERAL, 0, 999, 10);
-        item.quantity = 100;
+        const lootTable = new LootTable();
 
-        const equipable = new Equipable("Equipable Item", ItemCategory.EQUIPABLE, 0, 499, 5);
-        equipable.quantity = 100;
+        const commonItems = [
+          new Equipable("Common Axe"),
+          new Equipable("Common Mace"),
+          new Equipable("Common Sword"),
+        ];
+        const uncommonItems = [new Equipable("Uncommon Bow"), new Equipable("Uncommon Staff")];
+        const rareItems = [new Equipable("Rare Trinket")];
 
-        console.log(item.toString(false));
-        console.log(equipable.toString(false));
+        const lootPoolCommon = new LootPool("Common loot", commonItems, 100);
+        const lootPoolUncommon = new LootPool("Uncommon loot", uncommonItems, 20);
+        const lootPoolRare = new LootPool("Rare loot", rareItems, 4);
+        const lootPoolArtistry = new LootPoolArtistry("Rare loot", {}, 1000);
+        lootTable.addLootPool(lootPoolCommon);
+        lootTable.addLootPool(lootPoolUncommon);
+        lootTable.addLootPool(lootPoolRare);
+        lootTable.addLootPool(lootPoolArtistry);
+
+        const loot = lootTable.rollMultiple(7);
+
+        loot.forEach((item) => console.log(item.toString()));
 
         resolve();
       }

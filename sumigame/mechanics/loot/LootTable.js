@@ -1,10 +1,12 @@
+const { randomEquipment } = require("./artistry");
+
 /**
  * Represents a loot table containing items and their corresponding drop chances.
  */
 class LootTable {
   /**
    * Initializes a new instance of the LootTable class.
-   * @param {number} nothingChance - The probability of nothing dropping, expressed as a number between 0 and 1.
+   * @param {number} [nothingChance] - The probability of nothing dropping, expressed as a number between 0 and 1.
    */
   constructor(nothingChance = 0.7) {
     /**
@@ -68,9 +70,11 @@ class LootTable {
     return null;
   }
 
+  _rollArtistry() {}
+
   /**
    * Rolls the loot table multiple times to determine which items, if any, will be dropped.
-   * @param {number} numberOfRolls - The number of times to roll the loot table.
+   * @param {number} [numberOfRolls] - The number of times to roll the loot table.
    * @returns {Array<Item>} - An array of the items that were dropped.
    */
   rollMultiple(numberOfRolls = 3) {
@@ -78,7 +82,7 @@ class LootTable {
     for (let i = 0; i < numberOfRolls; i++) {
       let lootPool = this._roll();
       if (lootPool) {
-        droppedItems.push(lootPool.getRandomItem());
+        droppedItems.push(lootPool.getItem());
       }
     }
     return droppedItems;
@@ -93,9 +97,9 @@ class LootPool {
    * Creates a new instance of the LootPool class.
    * @param {string} name - The name of the loot pool.
    * @param {Array<Item>} pool - The items in the loot pool.
-   * @param {number} weight - The weight of the loot pool, used to calculate the probability of the pool being chosen.
+   * @param {number} [weight] - The weight of the loot pool, used to calculate the probability of the pool being chosen.
    */
-  constructor(name, pool, weight) {
+  constructor(name, pool, weight = 1) {
     this.name = name;
     this.pool = pool;
     this.weight = weight;
@@ -105,12 +109,29 @@ class LootPool {
    * Gets a random item from the loot pool.
    * @returns {Loot} - A random item from the loot pool.
    */
-  getRandomItem() {
+  getItem() {
     return this.pool[Math.floor(Math.random() * this.pool.length)];
+  }
+}
+
+class LootPoolArtistry {
+  constructor(name, lootOptions = {}, weight = 1) {
+    this.name = name;
+    this.lootOptions = lootOptions;
+    this.weight = weight;
+  }
+
+  /**
+   * Gets a randomly generated artistry item.
+   * @returns {Loot} - A randomly generated artistry item.
+   */
+  getItem() {
+    return randomEquipment(this.lootOptions);
   }
 }
 
 module.exports = {
   LootTable,
   LootPool,
+  LootPoolArtistry,
 };
