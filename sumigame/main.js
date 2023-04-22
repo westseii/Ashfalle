@@ -1,5 +1,7 @@
 const cc = require("node-console-colors");
 const setDefaultGameSettings = require("./setDefaultGameSettings");
+const { Item, ItemCategory } = require("./mechanics/items/Item");
+const Equipable = require("./mechanics/items/Equipable");
 
 /**
  * The main function that runs the game.
@@ -22,6 +24,15 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
       if (!name) reject(new Error("Error: gameSettings.game.name not set"));
       else {
         // ...
+
+        const item = new Item("Item", ItemCategory.GENERAL, 0, 999, 10);
+        item.quantity = 100;
+
+        const equipable = new Equipable("Equipable Item", ItemCategory.EQUIPABLE, 0, 499, 5);
+        equipable.quantity = 100;
+
+        console.log(item.toString(false));
+        console.log(equipable.toString(false));
 
         resolve();
       }

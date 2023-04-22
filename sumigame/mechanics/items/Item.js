@@ -172,11 +172,15 @@ class Item {
     return this.#getValueCurrencyArray(this.getQuantityValue());
   }
 
-  toString() {
-    const currency = this.getQuantityValueCurrencyArray().join(".");
+  toString(isQuantity = true) {
+    const currency = isQuantity
+      ? this.getQuantityValueCurrencyArray().join(".")
+      : this.getUnitValueCurrencyArray().join(".");
 
-    // TODO: output item info
-    return `${this.name}`;
+    return `${cc.set("fg_dark_green", this.name)} ${cc.set(
+      "fg_dark_purple",
+      this.category
+    )} - Val: ${cc.set("fg_dark_yellow", currency)}`;
   }
 }
 

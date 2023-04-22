@@ -21,17 +21,6 @@ class Equipable extends Item {
     this.level = level;
   }
 
-  toString() {
-    const name = cc.set("fg_dark_green", this.name);
-    const category = cc.set("fg_dark_purple", this.category);
-    const currency = cc.set("fg_dark_yellow", this.getQuantityValueCurrencyArray().join("."));
-    const value = cc.set("fg_dark_gray", this.value);
-    const artistry = cc.set("fg_dark_green", this.#artistry);
-    const level = cc.set("fg_dark_green", this.#level);
-
-    return `${name} ${category} ${currency} ${value} - Art ${artistry}, Lv ${level}`;
-  }
-
   get artistry() {
     return this.#artistry;
   }
@@ -50,6 +39,13 @@ class Equipable extends Item {
     if (value >= 1) {
       this.#level = value;
     }
+  }
+
+  toString(isQuantity = true) {
+    return `${super.toString(isQuantity)} Art: ${cc.set(
+      "fg_dark_yellow",
+      this.artistry
+    )} Lv: ${cc.set("fg_dark_yellow", this.level)}`;
   }
 }
 
