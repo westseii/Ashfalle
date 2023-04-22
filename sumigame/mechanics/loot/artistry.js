@@ -85,7 +85,7 @@ const weaponSubtypes = Object.keys(equipment.weapon);
 
 /**
  * Generates a random piece of equipment based on the provided lootOptions.
- * @param {Object} lootOptions - An optional object containing loot generation options.
+ * @param {Object} [lootOptions] - An optional object containing loot generation options.
  * @param {string} [lootOptions.itemType] - The type of item to generate (armor, jewelry, or weapon).
  * @param {Object} [lootOptions.artistryRange] - An object containing the minimum and maximum artistry for the item.
  * @param {number} [lootOptions.artistryRange.min] - The minimum artistry for the item.
@@ -112,7 +112,7 @@ function randomEquipment(lootOptions = {}) {
       return equipment.weapon[weaponSubtype](lootOptions);
 
     default:
-      // TODO: throw error?
+      // TODO: throw error? default to "armor"?
       break;
   }
 }

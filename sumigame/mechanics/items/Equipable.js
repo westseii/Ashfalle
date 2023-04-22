@@ -42,10 +42,11 @@ class Equipable extends Item {
   }
 
   toString(isQuantity = true) {
-    return `${super.toString(isQuantity)} Art: ${cc.set(
-      "fg_dark_yellow",
-      this.artistry
-    )} Lv: ${cc.set("fg_dark_yellow", this.level)}`;
+    // set console colors
+    const artistry = cc.set("fg_dark_yellow", this.artistry);
+    const level = cc.set("fg_dark_yellow", this.level);
+
+    return `${super.toString(isQuantity)} Art: ${artistry} Lv: ${level}`;
   }
 }
 

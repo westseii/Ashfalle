@@ -114,7 +114,18 @@ class LootPool {
   }
 }
 
-class LootPoolArtistry {
+/**
+ * Represents artistry items that can be dropped from a loot table.
+ */
+class ArtistryPool {
+  /**
+   * Creates a new instance of the ArtistryPool class.
+   * @param {string} name - The name of the artistry pool.
+   * @param {Object} [lootOptions] - Options for generating a random artistry item.
+   * @param {number} [lootOptions.rarity] - The rarity level of the artistry item, expressed as a number between 0 and 1.
+   * @param {number} [lootOptions.quality] - The quality level of the artistry item, expressed as a number between 0 and 1.
+   * @param {number} [weight] - The weight of the artistry pool, used to calculate the probability of the pool being chosen.
+   */
   constructor(name, lootOptions = {}, weight = 1) {
     this.name = name;
     this.lootOptions = lootOptions;
@@ -133,5 +144,5 @@ class LootPoolArtistry {
 module.exports = {
   LootTable,
   LootPool,
-  LootPoolArtistry,
+  ArtistryPool,
 };

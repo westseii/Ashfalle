@@ -173,14 +173,16 @@ class Item {
   }
 
   toString(isQuantity = true) {
-    const currency = isQuantity
+    let currency = isQuantity
       ? this.getQuantityValueCurrencyArray().join(".")
       : this.getUnitValueCurrencyArray().join(".");
 
-    return `${cc.set("fg_dark_green", this.name)} ${cc.set(
-      "fg_dark_purple",
-      this.category
-    )} - Val: ${cc.set("fg_dark_yellow", currency)}`;
+    // set console colors
+    const name = cc.set("fg_dark_green", this.name);
+    const category = cc.set("fg_dark_purple", this.category);
+    currency = cc.set("fg_dark_yellow", currency);
+
+    return `${name} ${category} - Val: ${currency}`;
   }
 }
 
