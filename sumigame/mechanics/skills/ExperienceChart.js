@@ -7,8 +7,8 @@ class ExperienceChart {
   /**
    * Create an experience chart.
    * @param {number} skillCap - The maximum skill level.
-   * @param {number} incrementRampBy - The increment ramp value.
-   * @param {number} adjustFirst - The adjust first value.
+   * @param {number} [incrementRampBy] - The increment ramp value.
+   * @param {number} [adjustFirst] - The adjust first value.
    * @throws {Error} - Invalid inputs.
    */
   constructor(skillCap, incrementRampBy = 5, adjustFirst = 95) {

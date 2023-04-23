@@ -23,10 +23,18 @@ class ItemCategory {
    * @param {string} value - The human-readable name for the item category.
    */
   constructor(key, value) {
-    this.key = key;
-    this.value = value;
+    if (!key || !value) {
+      throw new Error("Both key and value arguments are required");
+    }
+
+    this.key = key.toUpperCase();
+    this.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 
     Object.freeze(this);
+  }
+
+  static values() {
+    return Object.values(this).filter((value) => value instanceof this);
   }
 
   toString() {
@@ -120,13 +128,7 @@ class Item {
   }
 
   set quantity(quantity) {
-    if (quantity < 1) {
-      this.#quantity = 1;
-    } else if (quantity > this.#maxQuantity) {
-      this.#quantity = this.#maxQuantity;
-    } else {
-      this.#quantity = quantity;
-    }
+    this.#quantity = Math.min(Math.max(quantity, 1), this.#maxQuantity);
   }
 
   #getValueCurrencyArray(value) {

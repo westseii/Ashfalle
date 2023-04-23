@@ -26,9 +26,7 @@ class Equipable extends Item {
   }
 
   set artistry(value) {
-    if (value >= 1 && value <= 5) {
-      this.#artistry = value;
-    }
+    this.#artistry = Math.min(Math.max(value, 1), 5);
   }
 
   get level() {

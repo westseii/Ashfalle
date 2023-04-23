@@ -21,10 +21,18 @@ class EquipSlot {
    * @param {string} value - The human-readable name for the equipment slot.
    */
   constructor(key, value) {
-    this.key = key;
-    this.value = value;
+    if (!key || !value) {
+      throw new Error("Both key and value arguments are required");
+    }
+
+    this.key = key.toUpperCase();
+    this.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
 
     Object.freeze(this);
+  }
+
+  static values() {
+    return Object.values(this).filter((value) => value instanceof this);
   }
 
   /**

@@ -1,8 +1,5 @@
 const cc = require("node-console-colors");
 const setDefaultGameSettings = require("./setDefaultGameSettings");
-const { Item, ItemCategory } = require("./mechanics/items/Item");
-const Equipable = require("./mechanics/items/Equipable");
-const { LootTable, LootPool, ArtistryPool } = require("./mechanics/loot/LootTable");
 
 /**
  * The main function that runs the game.
@@ -17,17 +14,14 @@ const { LootTable, LootPool, ArtistryPool } = require("./mechanics/loot/LootTabl
     const gameSettings = require("./settings/game_settings.json");
     const name = gameSettings.game.name;
 
-    //
     // imports that need game_settings.json to exist
-    // const { equipment, randomEquipment } = require("./mechanics/loot/artistry");
+    // ...
 
     await new Promise((resolve, reject) => {
       if (!name) reject(new Error("Error: gameSettings.game.name not set"));
       else {
+        // entry point
         // ...
-
-        const testLootTable = require("./test_code_snippets/testLootTable");
-        testLootTable();
 
         resolve();
       }
@@ -47,6 +41,7 @@ const { LootTable, LootPool, ArtistryPool } = require("./mechanics/loot/LootTabl
  * @param {string} name - The name of the app.
  */
 function onExit(name) {
+  // cleanup
   // ...
 
   console.log(cc.set("fg_dark_cyan", `\n${name} exited\n`));

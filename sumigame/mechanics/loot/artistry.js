@@ -36,10 +36,10 @@ const equipment = {
  * @returns {Object} An object containing the validated loot lootOptions.
  */
 function _applyLootOptions(lootOptions) {
-  // Override default lootOptions with user-specified lootOptions
+  // override default lootOptions with user-specified lootOptions
   const { artistryRange, levelRange } = { ...gameSettings.lootDefaults, ...lootOptions };
 
-  // Set default maximum value for levelGenerateRange if it is null
+  // set default maximum value for levelGenerateRange if it is null
   if (levelRange.max === null) {
     levelRange.max = gameSettings.game.maxPlayerLevel;
   }
@@ -47,7 +47,7 @@ function _applyLootOptions(lootOptions) {
   const artistry = getRandomIntInclusive(artistryRange.min, artistryRange.max);
   const level = getRandomIntInclusive(levelRange.min, levelRange.max);
 
-  // Return validated loot lootOptions
+  // validated loot lootOptions
   return {
     artistry,
     level,
