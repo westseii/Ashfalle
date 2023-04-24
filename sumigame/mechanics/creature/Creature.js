@@ -1,6 +1,6 @@
 const cc = require("node-console-colors");
 const creatureStats = require("./CreatureStats");
-const CreatureEquipped = require("./creatureEquipped");
+const CreatureEquipped = require("./CreatureEquipment");
 
 class Creature2 {
   #name;

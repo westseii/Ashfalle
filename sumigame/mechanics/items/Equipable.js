@@ -1,9 +1,12 @@
 const cc = require("node-console-colors");
 const { Item, ItemCategory } = require("./Item");
+const EquipSlot = require("../loot/EquipSlot");
 
 class Equipable extends Item {
   #artistry;
   #level;
+
+  #equipSlot;
 
   constructor(
     name = "Unnamed Equipable",
@@ -19,6 +22,8 @@ class Equipable extends Item {
     // validate arguments on initialization
     this.artistry = artistry;
     this.level = level;
+
+    this.equipSlot = EquipSlot.ONE_HANDED;
   }
 
   get artistry() {
@@ -37,6 +42,14 @@ class Equipable extends Item {
     if (value >= 1) {
       this.#level = value;
     }
+  }
+
+  get equipSlot() {
+    return this.#equipSlot;
+  }
+
+  set equipSlot(slot) {
+    this.#equipSlot = slot;
   }
 
   toString(isQuantity = true) {

@@ -14,7 +14,7 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
     const gameSettings = require("./settings/game_settings.json");
     const name = gameSettings.game.name;
 
-    // imports that need game_settings.json to exist
+    // imports that rely on game_settings.json
     // ...
 
     await new Promise((resolve, reject) => {
@@ -30,7 +30,7 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
     // handle clean up and exit
     onExit(name);
   } catch (error) {
-    console.error(cc.set("fg_red", error));
+    console.error(cc.set("fg_red", error.stack));
     onExit("main");
   }
 })();

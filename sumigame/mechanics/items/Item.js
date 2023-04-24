@@ -7,7 +7,7 @@ const cc = require("node-console-colors");
  * @property {null} GENERAL - The category for general items (default).
  * @property {string} COMPONENT - The category for component items.
  * @property {string} CONSUMABLE - The category for consumable items.
- * @property {string} EQUIPABLE - The category for weapon items.
+ * @property {string} EQUIPABLE - The category for equipable items.
  * @property {string} REAGENT - The category for reagent items.
  */
 class ItemCategory {

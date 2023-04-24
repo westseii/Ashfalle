@@ -27,12 +27,14 @@ class LootTable {
   }
 
   /**
-   * Adds a loot pool to the loot table with a specified chance of dropping.
-   * @param {LootPool} lootPool - The loot pool to add.
+   * Adds loot pools to the loot table with a specified chance of dropping.
+   * @param {...Object} lootPools - The loot pool or pools to add.
    */
-  addLootPool(lootPool) {
-    this.lootPools.push(lootPool);
-    this.chances.push(lootPool.weight);
+  addLootPool(...lootPools) {
+    lootPools.forEach((lootPool) => {
+      this.lootPools.push(lootPool);
+      this.chances.push(lootPool.weight);
+    });
   }
 
   /**
@@ -69,8 +71,6 @@ class LootTable {
     // If no item was found, return null
     return null;
   }
-
-  _rollArtistry() {}
 
   /**
    * Rolls the loot table multiple times to determine which items, if any, will be dropped.

@@ -5,13 +5,13 @@ function testLootTable() {
   // create a new LootTable instance
   const lootTable = new LootTable(0.85);
 
-  // define some common items
+  // define some common items (3)
   const commonItems = [new Item("Common Axe"), new Item("Common Mace"), new Item("Common Sword")];
 
-  // define some uncommon items
+  // define some uncommon items (2)
   const uncommonItems = [new Item("Uncommon Bow"), new Item("Uncommon Staff")];
 
-  // define a rare item
+  // define a rare item (1)
   const rareItems = [new Item("Rare Trinket")];
 
   // define some options for generating random items
@@ -33,10 +33,7 @@ function testLootTable() {
   const lootPoolArtistry = new ArtistryPool("Randomly generated loot", artistryLootOptions, 1000);
 
   // add the loot pools to the loot table
-  lootTable.addLootPool(lootPoolCommon);
-  lootTable.addLootPool(lootPoolUncommon);
-  lootTable.addLootPool(lootPoolRare);
-  lootTable.addLootPool(lootPoolArtistry);
+  lootTable.addLootPool(lootPoolCommon, lootPoolUncommon, lootPoolUncommon, lootPoolArtistry);
 
   // generate n items from the loot table (n rolls)
   const loot = lootTable.rollMultiple(100);
