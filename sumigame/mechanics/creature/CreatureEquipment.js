@@ -1,5 +1,5 @@
 const { ItemCategory } = require("../items/Item");
-const EquipSlot = require("../loot/EquipSlot");
+const EquipSlot = require("./EquipSlot");
 
 /**
  * Represents the equipment of a creature.
@@ -66,7 +66,7 @@ class CreatureEquipment {
 
   /**
    * Unequips the item in the specified equipment slot.
-   * @param {EquipSlot} slot The slot to unequip the item from.
+   * @param {EquipSlot} [slot] The slot to unequip the item from.
    * @returns {EquipableItem | null} The item that was unequipped, or null if no item was equipped in the specified slot.
    * @throws {Error} Throws an error if the specified slot is not an equip slot.
    */
@@ -83,7 +83,7 @@ class CreatureEquipment {
 
   /**
    * Returns the item that is currently equipped in the specified equipment slot.
-   * @param {EquipSlot} slot The slot to get the equipped item from.
+   * @param {EquipSlot} [slot] The slot to get the equipped item from.
    * @returns {EquipableItem | null} The item that is currently equipped in the specified slot, or null if no item is equipped in the slot.
    */
   getEquippedItemBySlot(slot = EquipSlot.ONE_HANDED) {

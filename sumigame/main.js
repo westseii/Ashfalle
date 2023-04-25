@@ -15,6 +15,7 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
     const name = gameSettings.game.name;
 
     // imports that rely on game_settings.json
+    // ...
 
     await new Promise((resolve, reject) => {
       if (!name) reject(new Error("Error: gameSettings.game.name not set"));

@@ -1,6 +1,6 @@
 const cc = require("node-console-colors");
 const { Item, ItemCategory } = require("./Item");
-const EquipSlot = require("../loot/EquipSlot");
+const EquipSlot = require("../creature/EquipSlot");
 
 class Equipable extends Item {
   #artistry;
