@@ -91,6 +91,7 @@ class LootTable {
 
 /**
  * Represents a pool of items that can be dropped from a loot table.
+ * If you need randomly generated artistry items, use the ArtistryPool class instead.
  */
 class LootPool {
   /**
@@ -115,7 +116,8 @@ class LootPool {
 }
 
 /**
- * Represents artistry items that can be dropped from a loot table.
+ * Represents randomly generated artistry items that can be dropped from a loot table.
+ * If you need a pool of pre-determined items, use the LootPool class instead.
  */
 class ArtistryPool {
   /**

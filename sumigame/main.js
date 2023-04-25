@@ -15,13 +15,11 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
     const name = gameSettings.game.name;
 
     // imports that rely on game_settings.json
-    // ...
 
     await new Promise((resolve, reject) => {
       if (!name) reject(new Error("Error: gameSettings.game.name not set"));
       else {
         // entry point
-        // ...
 
         resolve();
       }
@@ -42,7 +40,6 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
  */
 function onExit(name) {
   // cleanup
-  // ...
 
   console.log(cc.set("fg_dark_cyan", `\n${name} exited\n`));
 }

@@ -1,41 +1,65 @@
-const { Item } = require("../mechanics/items/Item");
-const { LootPool, ArtistryPool, LootTable } = require("../mechanics/loot/LootTable");
+const Equipable = require("../mechanics/items/Equipable");
+const { ArtistryPool, LootPool, LootTable } = require("../mechanics/loot/LootTable");
 
 function testLootTable() {
+  //
+
+  //
   // create a new LootTable instance
+  // this loot table has a chance of 85% to drop nothing and a chance of 15% to drop something (per roll)
   const lootTable = new LootTable(0.85);
 
-  // define some common items (3)
-  const commonItems = [new Item("Common Axe"), new Item("Common Mace"), new Item("Common Sword")];
+  //
+  // create some arrays of items
+  // define three common items
+  const commonItems = [
+    new Equipable("Common Axe"),
+    new Equipable("Common Mace"),
+    new Equipable("Common Sword"),
+  ];
 
-  // define some uncommon items (2)
-  const uncommonItems = [new Item("Uncommon Bow"), new Item("Uncommon Staff")];
+  // define two uncommon items
+  const uncommonItems = [new Equipable("Uncommon Bow"), new Equipable("Uncommon Staff")];
 
-  // define a rare item (1)
-  const rareItems = [new Item("Rare Trinket")];
+  // define one rare item
+  const rareItems = [new Equipable("Rare Trinket")];
 
-  // define some options for generating random items
+  // define some options for randomly generated artistry items
   const artistryLootOptions = {
     artistryRange: { min: 2, max: 4 },
     levelRange: { min: 10, max: 15 },
   };
 
-  // create a new LootPool for the common items, with a weight of 100
-  const lootPoolCommon = new LootPool("Common loot", commonItems, 100);
+  const betterArtistryLootOptions = {
+    artistryRange: { min: 1, max: 3 },
+    levelRange: { min: 16, max: 20 },
+  };
 
-  // create a new LootPool for the uncommon items, with a weight of 20
-  const lootPoolUncommon = new LootPool("Uncommon loot", uncommonItems, 20);
+  //
+  // create loot pools, then pass in arrays of items and set the weight for each pool
+  // create a new loot pool for the common items, with a weight of 100
+  const commonPool = new LootPool("Common loot", commonItems, 100);
 
-  // create a new LootPool for the rare item, with a weight of 4
-  const lootPoolRare = new LootPool("Rare loot", rareItems, 4);
+  // create a new loot pool for the uncommon items, with a weight of 20
+  const uncommonPool = new LootPool("Uncommon loot", uncommonItems, 20);
 
-  // create a new ArtistryPool for generating random items, with a weight of 1000
-  const lootPoolArtistry = new ArtistryPool("Randomly generated loot", artistryLootOptions, 1000);
+  // create a new loot pool for the rare item, with a weight of 4
+  const rarePool = new LootPool("Rare loot", rareItems, 4);
 
+  // create new artistry pools for generating random items, with weights of 1000 and 20
+  const artistryPool = new ArtistryPool("Randomly generated loot", artistryLootOptions, 1000);
+  const betterArtistryPool = new ArtistryPool(
+    "Better randomly generated loot",
+    betterArtistryLootOptions,
+    200
+  );
+
+  //
   // add the loot pools to the loot table
-  lootTable.addLootPool(lootPoolCommon, lootPoolUncommon, lootPoolUncommon, lootPoolArtistry);
+  lootTable.addLootPool(commonPool, uncommonPool, rarePool, artistryPool, betterArtistryPool);
 
-  // generate n items from the loot table (n rolls)
+  // randomly select a loot pool based on its weight and then randomly select an item from the chosen pool
+  // here we are rolling the loot table n times (85% chance to drop nothing, 15% chance to drop something (per roll))
   const loot = lootTable.rollMultiple(100);
 
   // print out each item to the console
