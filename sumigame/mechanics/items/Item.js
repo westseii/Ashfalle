@@ -2,7 +2,6 @@ const cc = require("node-console-colors");
 
 /**
  * An enumeration type for types of categories for an Item.
- * @enum {string}
  * @readonly
  * @property {null} GENERAL - The category for general items (default).
  * @property {string} COMPONENT - The category for component items.

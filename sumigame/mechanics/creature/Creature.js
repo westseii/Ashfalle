@@ -1,8 +1,8 @@
 const cc = require("node-console-colors");
 const creatureStats = require("./CreatureStats");
-const CreatureEquipped = require("./CreatureEquipment");
+const CreatureEquipment = require("./CreatureEquipment");
 
-class Creature2 {
+class Creature {
   #name;
   #baseStats;
   #equippedItems;
@@ -16,45 +16,63 @@ class Creature2 {
 
     this.#name = name;
     this.#baseStats = new creatureStats();
-    this.#equippedItems = new CreatureEquipped();
+    this.#equippedItems = new CreatureEquipment();
     this.#activeEffects = [];
-    this.#statTotals = Object.assign({}, this.#baseStats);
+    this.#statTotals = Object.assign({}, this.#baseStats.base); // TODO: recalculate
   }
 
-  async equipItem(item) {
-    await new Promise((resolve, reject) => {
-      if (!item) reject();
-      else {
-        resolve();
-      }
-    });
+  get name() {
+    return this.#name;
   }
 
-  async unequipItem(slot) {
-    await new Promise((resolve, reject) => {
-      if (!slot) reject();
-      else {
-        resolve();
-      }
-    });
+  get baseStats() {
+    return this.#baseStats;
   }
 
-  async addEffect(effect) {
-    await new Promise((resolve, reject) => {
-      if (!effect) reject();
-      else {
-        resolve();
-      }
-    });
+  get equippedItems() {
+    return this.#equippedItems.equipped;
   }
 
-  async removeEffect(effect) {
-    await new Promise((resolve, reject) => {
-      if (!effect) reject();
-      else {
-        resolve();
-      }
-    });
+  get activeEffects() {
+    return this.#activeEffects;
+  }
+
+  get statTotals() {
+    return this.#statTotals;
+  }
+
+  equipItem(item) {
+    if (!item) return; // TODO:
+    else {
+      const replacedItem = this.#equippedItems.equipItem(item);
+
+      // return the replaced item
+      return replacedItem;
+    }
+  }
+
+  unequipItem(slot) {
+    if (!slot) return; // TODO:
+    else {
+      const unequippedItem = this.#equippedItems.unequipItemBySlot(slot);
+
+      // return the unequipped item
+      return unequippedItem;
+    }
+  }
+
+  addEffect(effect) {
+    if (!effect) return;
+    else {
+      return;
+    }
+  }
+
+  removeEffect(effect) {
+    if (!effect) return;
+    else {
+      return;
+    }
   }
 
   printBaseStats() {
@@ -79,4 +97,4 @@ class Creature2 {
   #updateStatTotal(statName) {}
 }
 
-module.exports = Creature2;
+module.exports = Creature;

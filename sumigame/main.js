@@ -2,10 +2,9 @@ const cc = require("node-console-colors");
 const setDefaultGameSettings = require("./setDefaultGameSettings");
 
 /**
- * The main function that runs the game.
+ * The main function.
  * @async
- * @function main
- * @throws {Error} if gameSettings.game.name is not set
+ * @throws {Error} if gameSettings.game.name is not set.
  */
 (async function main() {
   try {
@@ -22,11 +21,17 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
       else {
         // entry point
 
+        const testCreature = require("./test_code_snippets/testCreature");
+        const testLootTableArtistry = require("./test_code_snippets/testLootTableArtistry");
+
+        testCreature();
+        // testLootTableArtistry();
+
         resolve();
       }
     });
 
-    // handle clean up and exit
+    // handle cleanup on exit
     onExit(name);
   } catch (error) {
     console.error(cc.set("fg_red", error.stack));
@@ -35,8 +40,7 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
 })();
 
 /**
- * Handles clean up and exit.
- * @function onExit
+ * Handles clean up on exit.
  * @param {string} name - The name of the app.
  */
 function onExit(name) {

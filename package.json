@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-console-colors": "^1.1.5",
-    "pinia": "^2.0.34"
+    "node-console-colors": "^1.1.5"
   }
 }

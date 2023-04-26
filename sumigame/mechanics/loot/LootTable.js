@@ -1,7 +1,7 @@
 const { randomEquipment } = require("./artistry");
 
 /**
- * Represents a loot table containing items and their corresponding drop chances.
+ * Represents a loot table containing loot pools and their corresponding weights.
  */
 class LootTable {
   /**
@@ -123,9 +123,14 @@ class ArtistryPool {
   /**
    * Creates a new instance of the ArtistryPool class.
    * @param {string} name - The name of the artistry pool.
-   * @param {Object} [lootOptions] - Options for generating a random artistry item.
-   * @param {number} [lootOptions.rarity] - The rarity level of the artistry item, expressed as a number between 0 and 1.
-   * @param {number} [lootOptions.quality] - The quality level of the artistry item, expressed as a number between 0 and 1.
+   * @param {Object} [lootOptions] - An optional object containing loot generation options.
+   * @param {string} [lootOptions.itemType] - The type of item to generate (armor, jewelry, or weapon).
+   * @param {Object} [lootOptions.artistryRange] - An object containing the minimum and maximum artistry for the item.
+   * @param {number} [lootOptions.artistryRange.min] - The minimum artistry for the item.
+   * @param {number} [lootOptions.artistryRange.max] - The maximum artistry for the item.
+   * @param {Object} [lootOptions.levelRange] - An object containing the minimum and maximum level for the item.
+   * @param {number} [lootOptions.levelRange.min] - The minimum level for the item.
+   * @param {number} [lootOptions.levelRange.max] - The maximum level for the item.
    * @param {number} [weight] - The weight of the artistry pool, used to calculate the probability of the pool being chosen.
    */
   constructor(name, lootOptions = {}, weight = 1) {

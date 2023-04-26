@@ -1,5 +1,5 @@
 const { ItemCategory } = require("../items/Item");
-const EquipSlot = require("./EquipSlot");
+const { EquipSlot } = require("../items/Equipable");
 
 /**
  * Represents the equipment of a creature.
@@ -58,6 +58,7 @@ class CreatureEquipment {
       throw new Error("Invalid equipable item");
     }
 
+    // swap items
     const replacedItem = this.#equipped.get(equipableItem.equipSlot);
     this.#equipped.set(equipableItem.equipSlot, equipableItem);
 
@@ -65,7 +66,7 @@ class CreatureEquipment {
   }
 
   /**
-   * Unequips the item in the specified equipment slot.
+   * Unequips the item from the specified equipment slot.
    * @param {EquipSlot} [slot] The slot to unequip the item from.
    * @returns {EquipableItem | null} The item that was unequipped, or null if no item was equipped in the specified slot.
    * @throws {Error} Throws an error if the specified slot is not an equip slot.
@@ -75,6 +76,7 @@ class CreatureEquipment {
       throw new Error("Invalid slot");
     }
 
+    // remove item from slot
     const equipableItem = this.#equipped.get(slot);
     this.#equipped.set(slot, null);
 
