@@ -18,8 +18,8 @@ class ItemCategory {
 
   /**
    * @constructor
-   * @param {string} key - The unique identifier for the item category.
-   * @param {string} value - The human-readable name for the item category.
+   * @param {string} key The unique identifier for the item category.
+   * @param {string} value The human-readable name for the item category.
    */
   constructor(key, value) {
     if (!key || !value) {
@@ -46,36 +46,18 @@ class ItemCategory {
  */
 class Item {
   #name;
-  #category;
-  #carryWeight;
-  #value;
-  #maxQuantity;
-
-  #quantity;
+  #category = ItemCategory.GENERAL;
+  #value = 1;
+  #carryWeight = 0.1;
+  #quantity = 1;
+  #maxQuantity = 1;
 
   /**
    * Create a new Item.
-   * @param {string} [name] - The name of the item.
-   * @param {string} [category] - The category of the item (as defined in ItemCategory).
-   * @param {number} [carryWeight] - The weight of the item.
-   * @param {number} [value] - The value of the item in copper.
-   * @param {number} [maxQuantity] - The maximum quantity of the item that can be stacked in a single slot.
+   * @param {string} [name] The name of the item.
    */
-  constructor(
-    name = "Unnamed Item",
-    category = ItemCategory.GENERAL,
-    carryWeight = 0,
-    value = 0,
-    maxQuantity = 1
-  ) {
-    // validate arguments on initialization
-    this.name = name;
-    this.category = category;
-    this.carryWeight = carryWeight;
-    this.value = value;
-    this.maxQuantity = maxQuantity;
-
-    this.quantity = 1;
+  constructor(name = "Unnamed Item") {
+    this.#name = name;
   }
 
   get name() {
@@ -94,16 +76,8 @@ class Item {
     if (Object.values(ItemCategory).includes(category)) {
       this.#category = category;
     } else {
-      throw new Error(`Invalid category: ${category}`);
+      throw new Error(`Invalid category: ${category.toString()}`);
     }
-  }
-
-  get carryWeight() {
-    return this.#carryWeight * this.#quantity;
-  }
-
-  set carryWeight(carryWeight) {
-    this.#carryWeight = Math.max(0, carryWeight);
   }
 
   get value() {
@@ -114,12 +88,12 @@ class Item {
     this.#value = Math.max(0, value);
   }
 
-  get maxQuantity() {
-    return this.#maxQuantity;
+  get carryWeight() {
+    return this.#carryWeight * this.#quantity;
   }
 
-  set maxQuantity(maxQuantity) {
-    this.#maxQuantity = maxQuantity;
+  set carryWeight(carryWeight) {
+    this.#carryWeight = Math.max(0, carryWeight);
   }
 
   get quantity() {
@@ -128,6 +102,17 @@ class Item {
 
   set quantity(quantity) {
     this.#quantity = Math.min(Math.max(quantity, 1), this.#maxQuantity);
+  }
+
+  get maxQuantity() {
+    return this.#maxQuantity;
+  }
+
+  set maxQuantity(maxQuantity) {
+    this.#maxQuantity = maxQuantity;
+
+    // validate quantity
+    this.quantity = this.#quantity;
   }
 
   #getValueCurrencyArray(value) {
@@ -139,7 +124,7 @@ class Item {
 
   /**
    * Get the value of a single unit of the item.
-   * @returns {number} - The value of a single unit of the item.
+   * @returns {number} The value of a single unit of the item.
    */
   getUnitValue() {
     return this.#value;
@@ -147,7 +132,7 @@ class Item {
 
   /**
    * Get the total value of the item, taking into account the quantity.
-   * @returns {number} - The total value of the item.
+   * @returns {number} The total value of the item.
    */
   getQuantityValue() {
     return this.#value * this.#quantity;
@@ -157,7 +142,7 @@ class Item {
    * Get the value of a single unit of the item in an array representing the currency.
    * The array has three elements: the number of gold pieces, the number of silver pieces,
    * and the number of copper pieces, in that order.
-   * @returns {Array<number>} - An array representing the value of a single unit of the item in currency.
+   * @returns {Array<number>} An array representing the value of a single unit of the item in currency.
    */
   getUnitValueCurrencyArray() {
     return this.#getValueCurrencyArray(this.getUnitValue());
@@ -167,14 +152,14 @@ class Item {
    * Get the total value of the item in an array representing the currency, taking into account the quantity.
    * The array has three elements: the number of gold pieces, the number of silver pieces,
    * and the number of copper pieces, in that order.
-   * @returns {Array<number>} - An array representing the total value of the item in currency.
+   * @returns {Array<number>} An array representing the total value of the item in currency.
    */
   getQuantityValueCurrencyArray() {
     return this.#getValueCurrencyArray(this.getQuantityValue());
   }
 
-  toString(isQuantity = true) {
-    let currency = isQuantity
+  toString(asQuantity = true) {
+    let currency = asQuantity
       ? this.getQuantityValueCurrencyArray().join(".")
       : this.getUnitValueCurrencyArray().join(".");
 
@@ -184,6 +169,19 @@ class Item {
     currency = cc.set("fg_dark_yellow", currency);
 
     return `${name} ${category} - Val: ${currency}`;
+  }
+
+  toConsole(asQuantity = true) {
+    console.log(this.toString(asQuantity));
+  }
+
+  display() {
+    console.log(`name: ${this.#name}`);
+    console.log(`category: ${this.#category}`);
+    console.log(`value: ${this.#value}`);
+    console.log(`carryWeight: ${this.#carryWeight}`);
+    console.log(`quantity: ${this.#quantity}`);
+    console.log(`maxQuantity: ${this.#maxQuantity}`);
   }
 }
 

@@ -6,10 +6,10 @@ class ExperienceChart {
 
   /**
    * Create an experience chart.
-   * @param {number} skillCap - The maximum skill level.
-   * @param {number} [incrementRampBy] - The increment ramp value.
-   * @param {number} [adjustFirst] - The adjust first value.
-   * @throws {Error} - Invalid inputs.
+   * @param {number} skillCap The maximum skill level.
+   * @param {number} [incrementRampBy] The increment ramp value.
+   * @param {number} [adjustFirst] The adjustment for the first value in the chart.
+   * @throws {Error} Invalid inputs.
    */
   constructor(skillCap, incrementRampBy = 5, adjustFirst = 95) {
     if (typeof skillCap !== "number" || skillCap < 1) {
@@ -22,22 +22,16 @@ class ExperienceChart {
       throw new Error("Invalid adjustFirst");
     }
 
-    /**
-     * The experience chart.
-     * @type {number[]}
-     */
     this.#experienceChart = [];
-
     this.#buildExperienceChart(skillCap, incrementRampBy, adjustFirst);
-
     this.#experienceChart[this.#experienceChart.length - 1] = Infinity;
   }
 
   /**
    * Builds the experience chart.
-   * @param {number} skillCap - The maximum skill level.
-   * @param {number} incrementRampBy - The increment ramp value.
-   * @param {number} adjustFirst - The adjust first value.
+   * @param {number} skillCap The maximum skill level.
+   * @param {number} incrementRampBy The increment ramp value.
+   * @param {number} adjustFirst The adjust first value.
    * @private
    */
   #buildExperienceChart(skillCap, incrementRampBy, adjustFirst) {
@@ -65,9 +59,9 @@ class ExperienceChart {
 
   /**
    * Gets the cost of the next skill level.
-   * @param {number} currentSkillLevel - The current skill level.
+   * @param {number} currentSkillLevel The current skill level.
    * @returns {number} The cost of the next skill level.
-   * @throws {Error} - Invalid skill level.
+   * @throws {Error} Invalid skill level.
    */
   getNextCost(currentSkillLevel) {
     if (currentSkillLevel > this.#experienceChart.length || currentSkillLevel < 1) {
@@ -79,7 +73,7 @@ class ExperienceChart {
 
   /**
    * Calculates the total skill up cost up to but not including the current skill level.
-   * @param {number} currentSkillLevel - The current skill level.
+   * @param {number} currentSkillLevel The current skill level.
    * @returns {number} The total skill up cost up to but not including the current skill level.
    */
   getTotalCostForCurrent(currentSkillLevel) {

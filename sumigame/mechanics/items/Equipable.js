@@ -20,8 +20,8 @@ class EquipSlot {
 
   /**
    * @constructor
-   * @param {string} key - The unique identifier for the equipment slot.
-   * @param {string} value - The human-readable name for the equipment slot.
+   * @param {string} key The unique identifier for the equipment slot.
+   * @param {string} value The human-readable name for the equipment slot.
    */
   constructor(key, value) {
     if (!key || !value) {
@@ -40,7 +40,7 @@ class EquipSlot {
 
   /**
    * Returns the human-readable name for the equipment slot as a string.
-   * @returns {string} - The name of the equipment slot.
+   * @returns {string} The name of the equipment slot.
    */
   toString() {
     return `${this.value}`;
@@ -48,35 +48,49 @@ class EquipSlot {
 }
 
 class Equipable extends Item {
-  #artistry;
-  #level;
+  #equipSlot = EquipSlot.ONE_HANDED;
+  #isArtistryItem = true;
+  #artistry = 3;
+  #level = 1;
 
-  #equipSlot;
+  constructor(name = "Unnamed Equipable") {
+    super(name);
+    super.category = ItemCategory.EQUIPABLE;
+  }
 
-  constructor(
-    name = "Unnamed Equipable",
-    category = ItemCategory.EQUIPABLE,
-    carryWeight = 0,
-    value = 0,
-    maxQuantity = 1,
-    artistry = 3,
-    level = 1
-  ) {
-    super(name, category, carryWeight, value, maxQuantity);
+  get equipSlot() {
+    return this.#equipSlot;
+  }
 
-    // validate arguments on initialization
-    this.artistry = artistry;
-    this.level = level;
+  set equipSlot(slot) {
+    if (Object.values(EquipSlot).includes(slot)) {
+      this.#equipSlot = slot;
+    } else {
+      throw new Error(`Invalid slot: ${slot.toString()}`);
+    }
+  }
 
-    this.equipSlot = EquipSlot.ONE_HANDED;
+  get isArtistryItem() {
+    return this.#isArtistryItem;
+  }
+
+  set isArtistryItem(bool) {
+    this.#isArtistryItem = bool;
+
+    // validate artistry
+    this.artistry = this.#artistry;
   }
 
   get artistry() {
     return this.#artistry;
   }
 
-  set artistry(value) {
-    this.#artistry = Math.min(Math.max(value, 1), 5);
+  set artistry(artistry) {
+    if (this.#isArtistryItem) {
+      this.#artistry = Math.min(Math.max(artistry, 1), 5);
+    } else {
+      this.#artistry = null;
+    }
   }
 
   get level() {
@@ -89,22 +103,25 @@ class Equipable extends Item {
     }
   }
 
-  get equipSlot() {
-    return this.#equipSlot;
-  }
-
-  set equipSlot(slot) {
-    if (slot instanceof EquipSlot) {
-      this.#equipSlot = slot;
-    }
-  }
-
-  toString(isQuantity = true) {
+  toString(asQuantity = true) {
     // set console colors
     const artistry = cc.set("fg_dark_yellow", this.artistry);
     const level = cc.set("fg_dark_yellow", this.level);
 
-    return `${super.toString(isQuantity)} Art: ${artistry} Lv: ${level}`;
+    return `${super.toString(asQuantity)} Art: ${artistry} Lv: ${level}`;
+  }
+
+  toConsole(asQuantity = true) {
+    console.log(this.toString(asQuantity));
+  }
+
+  display() {
+    super.display();
+    console.log("---");
+    console.log(`equipSlot: ${this.#equipSlot}`);
+    console.log(`isArtistryItem: ${this.#isArtistryItem}`);
+    console.log(`artistry: ${this.#artistry}`);
+    console.log(`level: ${this.#level}`);
   }
 }
 

@@ -6,29 +6,17 @@ const { randomEquipment } = require("./artistry");
 class LootTable {
   /**
    * Initializes a new instance of the LootTable class.
-   * @param {number} [nothingChance] - The probability of nothing dropping, expressed as a number between 0 and 1.
+   * @param {number} [nothingChance] The probability of nothing dropping, expressed as a number between 0 and 1.
    */
   constructor(nothingChance = 0.7) {
-    /**
-     * An array containing the available LootPools for this loot table.
-     * @type {Array<LootPool>}
-     */
     this.lootPools = [];
-    /**
-     * An array containing the chances of dropping the corresponding loot pool.
-     * @type {Array<number>}
-     */
     this.chances = [];
-    /**
-     * The probability of nothing dropping, expressed as a number between 0 and 1.
-     * @type {number}
-     */
     this.nothingChance = nothingChance;
   }
 
   /**
    * Adds loot pools to the loot table with a specified chance of dropping.
-   * @param {...Object} lootPools - The loot pool or pools to add.
+   * @param {...Object} lootPools The loot pool or pools to add.
    */
   addLootPool(...lootPools) {
     lootPools.forEach((lootPool) => {
@@ -39,7 +27,7 @@ class LootTable {
 
   /**
    * Rolls the loot table to determine which item, if any, will be dropped (do not invoke this function directly).
-   * @returns {LootPool|null} - The item that was dropped, or null if no item was dropped.
+   * @returns {LootPool|null} The item that was dropped, or null if no item was dropped.
    */
   _roll() {
     // Generate a random number between 0 and 1
@@ -74,8 +62,8 @@ class LootTable {
 
   /**
    * Rolls the loot table multiple times to determine which items, if any, will be dropped.
-   * @param {number} [numberOfRolls] - The number of times to roll the loot table.
-   * @returns {Array<Item>} - An array of the items that were dropped.
+   * @param {number} [numberOfRolls] The number of times to roll the loot table.
+   * @returns {Array<Item>} An array of the items that were dropped.
    */
   rollMultiple(numberOfRolls = 3) {
     let droppedItems = [];
@@ -96,9 +84,9 @@ class LootTable {
 class LootPool {
   /**
    * Creates a new instance of the LootPool class.
-   * @param {string} name - The name of the loot pool.
-   * @param {Array<Item>} pool - The items in the loot pool.
-   * @param {number} [weight] - The weight of the loot pool, used to calculate the probability of the pool being chosen.
+   * @param {string} name The name of the loot pool.
+   * @param {Array<Item>} pool The items in the loot pool.
+   * @param {number} [weight] The weight of the loot pool, used to calculate the probability of the pool being chosen.
    */
   constructor(name, pool, weight = 1) {
     this.name = name;
@@ -108,7 +96,7 @@ class LootPool {
 
   /**
    * Gets a random item from the loot pool.
-   * @returns {Loot} - A random item from the loot pool.
+   * @returns {Loot} A random item from the loot pool.
    */
   getItem() {
     return this.pool[Math.floor(Math.random() * this.pool.length)];
@@ -122,16 +110,16 @@ class LootPool {
 class ArtistryPool {
   /**
    * Creates a new instance of the ArtistryPool class.
-   * @param {string} name - The name of the artistry pool.
-   * @param {Object} [lootOptions] - An optional object containing loot generation options.
-   * @param {string} [lootOptions.itemType] - The type of item to generate (armor, jewelry, or weapon).
-   * @param {Object} [lootOptions.artistryRange] - An object containing the minimum and maximum artistry for the item.
-   * @param {number} [lootOptions.artistryRange.min] - The minimum artistry for the item.
-   * @param {number} [lootOptions.artistryRange.max] - The maximum artistry for the item.
-   * @param {Object} [lootOptions.levelRange] - An object containing the minimum and maximum level for the item.
-   * @param {number} [lootOptions.levelRange.min] - The minimum level for the item.
-   * @param {number} [lootOptions.levelRange.max] - The maximum level for the item.
-   * @param {number} [weight] - The weight of the artistry pool, used to calculate the probability of the pool being chosen.
+   * @param {string} name The name of the artistry pool.
+   * @param {Object} [lootOptions] An optional object containing loot generation options.
+   * @param {string} [lootOptions.itemType] The type of item to generate (armor, jewelry, or weapon).
+   * @param {Object} [lootOptions.artistryRange] An object containing the minimum and maximum artistry for the item.
+   * @param {number} [lootOptions.artistryRange.min] The minimum artistry for the item.
+   * @param {number} [lootOptions.artistryRange.max] The maximum artistry for the item.
+   * @param {Object} [lootOptions.levelRange] An object containing the minimum and maximum level for the item.
+   * @param {number} [lootOptions.levelRange.min] The minimum level for the item.
+   * @param {number} [lootOptions.levelRange.max] The maximum level for the item.
+   * @param {number} [weight] The weight of the artistry pool, used to calculate the probability of the pool being chosen.
    */
   constructor(name, lootOptions = {}, weight = 1) {
     this.name = name;
@@ -141,7 +129,7 @@ class ArtistryPool {
 
   /**
    * Gets a randomly generated artistry item.
-   * @returns {Loot} - A randomly generated artistry item.
+   * @returns {Loot} A randomly generated artistry item.
    */
   getItem() {
     return randomEquipment(this.lootOptions);
