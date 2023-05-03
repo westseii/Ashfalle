@@ -63,10 +63,10 @@ class Equipable extends Item {
   }
 
   set equipSlot(slot) {
-    if (Object.values(EquipSlot).includes(slot)) {
+    if (slot instanceof EquipSlot && EquipSlot.values().includes(slot)) {
       this.#equipSlot = slot;
     } else {
-      throw new Error(`Invalid slot: ${slot.toString()}`);
+      throw new Error(`Invalid EquipSlot: ${slot.toString()}`);
     }
   }
 

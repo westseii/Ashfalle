@@ -73,10 +73,10 @@ class Item {
   }
 
   set category(category) {
-    if (Object.values(ItemCategory).includes(category)) {
+    if (category instanceof ItemCategory && ItemCategory.values().includes(category)) {
       this.#category = category;
     } else {
-      throw new Error(`Invalid category: ${category.toString()}`);
+      throw new Error(`Invalid ItemCategory: ${category.toString()}`);
     }
   }
 

@@ -16,6 +16,9 @@ const setDefaultGameSettings = require("./setDefaultGameSettings");
       else {
         // entry point
 
+        const testLootTable = require("./test_code_snippets/testLootTable");
+        testLootTable(0.85, 15);
+
         resolve();
       }
     });

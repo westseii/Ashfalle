@@ -7,15 +7,12 @@ const { ONE_HANDED, TWO_HANDED } = EquipSlot;
 function genWeapon(subtype, artistry, level) {
   const slot = _getEquipSlot(subtype);
 
-  return new Equipable(
-    `Equipable ${slot} ${subtype}`, // TODO: name generator
-    ItemCategory.EQUIPABLE,
-    1,
-    getRandomIntInclusive(999, 3333) * artistry * level, // TODO: value calculation
-    1,
-    artistry,
-    level
-  );
+  const eq = new Equipable(`Equipable ${slot} ${subtype}`);
+  eq.value = getRandomIntInclusive(999, 3333) * artistry * level; // TODO: value calculation
+  eq.artistry = artistry;
+  eq.level = level;
+
+  return eq;
 }
 
 const subtypes1H = ["axe", "caster", "mace", "sword"];

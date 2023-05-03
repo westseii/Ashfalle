@@ -1,3 +1,4 @@
+const cc = require("node-console-colors");
 const { Equipable } = require("../Equipable");
 
 /**
@@ -35,14 +36,48 @@ class WeaponType {
   }
 }
 
+/**
+ * An enumeration type for types of damage that can be dealt.
+ * @readonly
+ */
+class DamageType {
+  static PHYSICAL = new WeaponType("PHYSICAL", "Physical");
+
+  /**
+   * @constructor
+   * @param {string} key The unique identifier for the damage type.
+   * @param {string} value The human-readable name for the damage type.
+   */
+  constructor(key, value) {
+    if (!key || !value) {
+      throw new Error("Both key and value arguments are required");
+    }
+
+    this.key = key.toUpperCase();
+    this.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+
+    Object.freeze(this);
+  }
+
+  static values() {
+    return Object.values(this).filter((value) => value instanceof this);
+  }
+
+  toString() {
+    return `${this.value}`;
+  }
+}
+
 class Weapon extends Equipable {
   #damageRating;
   #attackSpeed;
   #weaponType;
 
-  #damageVariance = 0.1; // precise
-  #damageType = null;
-  #dps = null;
+  #damageVariance = 0.1; // balanced
+  #damageMin;
+  #damageMax;
+  #damageType = DamageType.PHYSICAL;
+  #dps;
 
   constructor(
     name = "Unnamed Weapon",
@@ -70,7 +105,7 @@ class Weapon extends Equipable {
   }
 
   set attackSpeed(attackSpeed) {
-    this.#attackSpeed = attackSpeed;
+    this.#attackSpeed = Math.min(Math.max(attackSpeed, 1), 5);
   }
 
   get weaponType() {
@@ -78,7 +113,11 @@ class Weapon extends Equipable {
   }
 
   set weaponType(weaponType) {
-    this.#weaponType = weaponType;
+    if (weaponType instanceof WeaponType && WeaponType.values().includes(weaponType)) {
+      this.#weaponType = weaponType;
+    } else {
+      throw new Error(`Invalid WeaponType: ${slot.toString()}`);
+    }
   }
 
   get damageVariance() {
