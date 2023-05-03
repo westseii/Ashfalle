@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "node-console-colors": "^1.1.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^2.0.0",
+    "@types/node": "^18.16.3"
   }
 }
